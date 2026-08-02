@@ -8,23 +8,48 @@ import axios from "axios";
 function App() {
 
   const API_KEY = import.meta.env.VITE_API_KEY;
-  console.log(API_KEY)
 
   const [movieData, setMovieData] = useState([]);
+  const [movieQueue, setMovieQueue] = useState(JSON.parse(localStorage.getItem('MovieQueue')) || [])
+
+  const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+
+  const [page, setPage] = useState(1)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [search]);
+
 
   useEffect(() => {
     if (!API_KEY) return;
-    axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`)
+    if (!debouncedSearch) axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`)
       .then((response) => {
         setMovieData(response.data.results || []);
       })
       .catch((error) => {
         console.error("Error fetching movies:", error);
       });
-  }, [API_KEY]);
+    if (debouncedSearch) axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${debouncedSearch}&page=${1}`)
+      .then((response) => {
+        setMovieData(response.data.results || []);
+      })
+      .catch((error) => {
+        console.error("Error fetching movies:", error);
+      });
+  }, [API_KEY, debouncedSearch, page]);
+
+  useEffect(() => {
+    localStorage.setItem('MovieQueue', JSON.stringify(movieQueue))
+  }, [movieQueue])
 
 
-  const movies = Array.from({ length: 12 });
+
   return (
     <div className='w-[90%] min-h-screen flex flex-col mx-auto items-center'>
       <NavBar />
