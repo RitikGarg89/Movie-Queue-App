@@ -22,7 +22,7 @@ function MovieCard({ movie, addToMovieQueue, movieQueue }) {
             </p>
             <div className='flex justify-between p-3 sm:p-4 items-center bg-white text-black relative z-10'>
                 <p className='text-sm sm:text-[18px] text-black/50 font-medium'>{year}</p>
-                <button onClick={() => addToMovieQueue(movie)} className={`${movieQueue.some(m => m.id === movie.id) ? 'bg-green-200 hover:bg-green-300 text-green-800' : 'bg-blue-200 hover:bg-blue-300 text-blue-800'} font-semibold text-xs sm:text-[14px] rounded-3xl px-2 py-0.5 sm:py-1 transition-colors`}>{movieQueue.some(m => m.id === movie.id) ? '✓ Queued' : '+ Add'}</button>
+                <button onClick={() => addToMovieQueue(movie)} className={`${movieQueue.some(m => m.id === movie.id) ? 'bg-green-200 hover:bg-green-300 text-green-800' : 'bg-blue-200 hover:bg-blue-300 text-blue-800'} font-semibold text-xs sm:text-[14px] rounded-3xl px-2 py-0.5 sm:py-1 cursor-pointer transition-colors`}>{movieQueue.some(m => m.id === movie.id) ? '✓ Queued' : '+ Add'}</button>
             </div>
         </div>
     )
