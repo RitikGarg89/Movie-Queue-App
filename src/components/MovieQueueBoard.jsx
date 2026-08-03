@@ -32,7 +32,7 @@ function MovieQueueBoard({ movieQueue, toggleWatched, removeFromQueue }) {
                     <div className="flex justify-between items-center mb-2">
                         <h3 className="text-lg sm:text-xl font-bold text-slate-800 flex items-center gap-2">
                             🍿 Queue List
-                            <span className="bg-slate-205 text-slate-700 px-2.5 py-0.5 rounded-full text-xs font-semibold">
+                            <span className="bg-slate-200text-slate-700 px-2.5 py-0.5 rounded-full text-xs font-semibold">
                                 {queuedMovies.length}
                             </span>
                         </h3>
@@ -63,7 +63,7 @@ function MovieQueueBoard({ movieQueue, toggleWatched, removeFromQueue }) {
                     <div className="flex justify-between items-center mb-2">
                         <h3 className="text-lg sm:text-xl font-bold text-slate-800 flex items-center gap-2">
                             ✅ Watched List
-                            <span className="bg-slate-205 text-slate-700 px-2.5 py-0.5 rounded-full text-xs font-semibold">
+                            <span className="bg-slate-200text-slate-700 px-2.5 py-0.5 rounded-full text-xs font-semibold">
                                 {watchedMovies.length}
                             </span>
                         </h3>
