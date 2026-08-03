@@ -1,7 +1,7 @@
 import React from 'react'
 import movieIcon from '../icons/movie.png'
 
-function MovieCard({ movie }) {
+function MovieCard({ movie, addToMovieQueue, movieQueue }) {
     const title = movie?.title || "Name";
     const year = movie?.release_date ? movie.release_date.split('-')[0] : 2026;
     const rating = movie?.vote_average ? movie.vote_average.toFixed(1) : "8.9";
@@ -22,7 +22,7 @@ function MovieCard({ movie }) {
             </p>
             <div className='flex justify-between p-3 sm:p-4 items-center bg-white text-black relative z-10'>
                 <p className='text-sm sm:text-[18px] text-black/50 font-medium'>{year}</p>
-                <button className='bg-blue-200 hover:bg-blue-300 text-blue-800 font-semibold text-xs sm:text-[14px] rounded-3xl px-2 py-0.5 sm:py-1 transition-colors'>+ Add</button>
+                <button onClick={() => addToMovieQueue(movie)} className={`${movieQueue.some(m => m.id === movie.id) ? 'bg-green-200 hover:bg-green-300 text-green-800' : 'bg-blue-200 hover:bg-blue-300 text-blue-800'} font-semibold text-xs sm:text-[14px] rounded-3xl px-2 py-0.5 sm:py-1 transition-colors`}>{movieQueue.some(m => m.id === movie.id) ? '✓ Queued' : '+ Add'}</button>
             </div>
         </div>
     )

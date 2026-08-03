@@ -46,16 +46,23 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('MovieQueue', JSON.stringify(movieQueue))
+    console.log(movieQueue)
   }, [movieQueue])
 
-
+  const addToMovieQueue = (movie) => {
+    if (movieQueue.some(m => m.id === movie.id)) setMovieQueue(prev => prev.filter(m => m.id !== movie.id));
+    else {
+      movie.isWatched = false;
+      setMovieQueue(prev => [...prev, movie]);
+    }
+  }
 
   return (
     <div className='w-[90%] min-h-screen flex flex-col mx-auto items-center'>
-      <NavBar />
+      <NavBar setSearch={setSearch} search={search} />
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 md:gap-8 md:mt-10 mt-6 pb-16">
         {movieData.map((movie, i) => (
-          <MovieCard key={movie.id || i} movie={movie} />
+          <MovieCard key={movie.id || i} movie={movie} addToMovieQueue={addToMovieQueue} movieQueue={movieQueue} />
         ))}
       </div>
     </div>
